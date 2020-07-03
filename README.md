@@ -1,7 +1,7 @@
 # SpringSummerPractice
 Summer Practice
 DB UML
-![alt_text](/UML/db_UML.png?raw=True)
+![alt_text](/UML/db_UML.png?raw=False)
 
 
 
