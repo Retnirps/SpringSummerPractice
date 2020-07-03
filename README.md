@@ -1,9 +1,9 @@
 # SpringSummerPractice
 
-DB UML
-![Image alt](https://github.com/Retnirps/SpringSummerPractice/raw/master/UML/db_UML.png)
+# Database UML
+![alt_text](/UML/db_UML.png?raw=True)
 
 
 
-CLASS UML
+# Class UML
 ![alt_text](/UML/class_UML.png?raw=True)
