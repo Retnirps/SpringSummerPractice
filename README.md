@@ -1,7 +1,7 @@
 # SpringSummerPractice
 Summer Practice
 DB UML
-![alt_text](/UML/db_UML.png?raw=False)
+![Image alt](https://github.com/Retnirps/SpringSummerPractice/raw/master/UML/db_UML.png)
 
 
 
