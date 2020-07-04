@@ -1,9 +1,5 @@
 package com.example.TestServer.models;
 
-import com.example.TestServer.customTypes.statusEnum;
-import lombok.Data;
-
-import javax.persistence.Entity;
 /*
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -14,7 +10,7 @@ import javax.persistence.Table;
 public class Status {
     @Id
     private int status_id;
-    private statusEnum status;
+    private StatusEnum status;
 
     public Status() {
 
