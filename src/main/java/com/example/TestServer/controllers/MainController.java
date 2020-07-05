@@ -1,7 +1,9 @@
 package com.example.TestServer.controllers;
 
+import com.example.TestServer.dto.UserDto;
 import com.example.TestServer.exceptions.ResourceNotFoundException;
 import com.example.TestServer.entities.User;
+import com.example.TestServer.models.UserModel;
 import com.example.TestServer.services.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,17 +26,25 @@ public class MainController {
         return this.userRepository.findAll();
     }*/
 
-    //get user by id
-    @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable(value = "id") Integer userId)
-    throws ResourceNotFoundException {
-        return this.service.getUserById(userId);
-    }
-
     //add user
     @PostMapping("/users")
-    public int addUser(@RequestParam String username, @RequestParam String email) {
-        return this.service.addUser(username, email);
+    public int addUser(@RequestBody UserDto userDto) {
+        String username = userDto.getUsername();
+        String email = userDto.getEmail();
+        UserModel userModel = new UserModel(username, email);
+        return this.service.addUser(userModel);
+    }
+
+    //get user by id
+    @GetMapping("/users/{id}")
+    public UserDto getUserById(@PathVariable(value = "id") Integer userId)
+    throws ResourceNotFoundException {
+        UserModel userModel = this.service.getUserById(userId);
+        String username = userModel.getUsername();
+        int statusId = userModel.getStatusId();
+        String email = userModel.getEmail();
+        UserDto userDto = new UserDto(username, statusId, email);
+        return userDto;
     }
 
     //update user

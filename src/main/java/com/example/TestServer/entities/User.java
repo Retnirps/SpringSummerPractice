@@ -14,7 +14,6 @@ import javax.persistence.*;
     @Column(name = "user_id")
     private int userId;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Column(name = "status_id")
     private int statusId;
     @Column(name = "username")
