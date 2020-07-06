@@ -9,6 +9,7 @@ public class UserModel {
     private int id;
     private String username;
     private int statusId;
+    private int oldStatusId;
     private String email;
 
     public UserModel(String username, String email) {
@@ -16,9 +17,9 @@ public class UserModel {
         this.email = email;
     }
 
-    public UserModel(String username, int statusId, String email) {
-        this.username = username;
+    public UserModel(int id, int oldStatusId, int statusId) {
+        this.id = id;
+        this.oldStatusId = oldStatusId;
         this.statusId = statusId;
-        this.email = email;
     }
 }

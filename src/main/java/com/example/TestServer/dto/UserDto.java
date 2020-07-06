@@ -7,12 +7,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDto {
     private String username;
-    private int statusId;
     private String email;
 
-    public UserDto(String username, int statusId, String email) {
+    public UserDto(String username, String email) {
         this.username = username;
-        this.statusId = statusId;
         this.email = email;
     }
 }

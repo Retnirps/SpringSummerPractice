@@ -24,10 +24,20 @@ public class Service {
             User user = userRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException("user ID:" + id + " not found"));
             String username = user.getUsername();
-            int statusId = user.getStatusId();
             String email = user.getEmail();
-            UserModel userModel = new UserModel(username, statusId, email);
+            UserModel userModel = new UserModel(username, email);
             return userModel;
     }
+
     //setStatusForUser
+    public UserModel setStatusForId(int id, int statusId) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("user ID:" + id + " not found"));
+        int oldStatusId = user.getStatusId();
+        user.setStatusId(statusId);
+        final User updatedUser = userRepository.save(user);
+
+        UserModel userModel = new UserModel(id, oldStatusId, statusId);
+        return userModel;
+    }
 }

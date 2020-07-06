@@ -1,18 +1,12 @@
 package com.example.TestServer.controllers;
 
 import com.example.TestServer.dto.UserDto;
+import com.example.TestServer.dto.UserStatusDto;
 import com.example.TestServer.exceptions.ResourceNotFoundException;
-import com.example.TestServer.entities.User;
 import com.example.TestServer.models.UserModel;
 import com.example.TestServer.services.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/data")
@@ -41,10 +35,18 @@ public class MainController {
     throws ResourceNotFoundException {
         UserModel userModel = this.service.getUserById(userId);
         String username = userModel.getUsername();
-        int statusId = userModel.getStatusId();
         String email = userModel.getEmail();
-        UserDto userDto = new UserDto(username, statusId, email);
+        UserDto userDto = new UserDto(username, email);
         return userDto;
+    }
+
+    @PutMapping("/users")
+    public UserStatusDto setStatusForId(@RequestBody UserStatusDto userStatusDto) {
+        int userId = userStatusDto.getUserId();
+        int statusId = userStatusDto.getStatus().equals("Offline") ? 0 : 1;
+        UserModel userModel = this.service.setStatusForId(userId, statusId);
+        userStatusDto = new UserStatusDto(userId, userModel.getOldStatusId(), statusId);
+        return userStatusDto;
     }
 
     //update user
