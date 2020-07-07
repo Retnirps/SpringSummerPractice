@@ -4,8 +4,8 @@ import com.example.TestServer.dto.StatisticsDto;
 import com.example.TestServer.dto.UserDto;
 import com.example.TestServer.dto.UserStatusDto;
 import com.example.TestServer.exceptions.ResourceNotFoundException;
-import com.example.TestServer.models.Pair;
 import com.example.TestServer.models.StatisticsModel;
+import com.example.TestServer.models.Triple;
 import com.example.TestServer.models.UserModel;
 import com.example.TestServer.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,10 +48,10 @@ public class UserController {
     }
 
     @GetMapping("/statistics")
-    public Pair<Long, List<StatisticsDto>> getAllUsersChangedStatusAfterTimestamp(@RequestBody StatisticsDto statisticsDto) {
+    public Triple<Long, Long, List<StatisticsDto>> getAllUsersChangedStatusAfterTimestamp(@RequestBody StatisticsDto statisticsDto) {
         String status = statisticsDto.getStatus();
         long timestamp = statisticsDto.getTimestamp();
-        Pair<Long, List<StatisticsModel>> requestIdWithRequestBody = userService.getUsersChangedStatusAfterTimestamp(status, timestamp);
+        Triple<Long, Long, List<StatisticsModel>> requestIdWithRequestBody = userService.getUsersChangedStatusAfterTimestamp(status, timestamp);
         List<StatisticsModel> models = requestIdWithRequestBody.getUsersInfo();
         List<StatisticsDto> statisticsDtoList = new ArrayList<>();
         for (StatisticsModel model : models) {
@@ -59,6 +59,7 @@ public class UserController {
             statisticsDtoList.add(outputDto);
         }
         long requestId = requestIdWithRequestBody.getRequestId();
-        return new Pair<>(requestId, statisticsDtoList);
+        long requestTime = requestIdWithRequestBody.getTimestamp();
+        return new Triple<>(requestId, requestTime, statisticsDtoList);
     }
 }

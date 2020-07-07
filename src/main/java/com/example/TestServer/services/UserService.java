@@ -4,19 +4,17 @@ import com.example.TestServer.entities.RequestLog;
 import com.example.TestServer.entities.Statistics;
 import com.example.TestServer.entities.User;
 import com.example.TestServer.exceptions.ResourceNotFoundException;
-import com.example.TestServer.models.Pair;
 import com.example.TestServer.models.StatisticsModel;
+import com.example.TestServer.models.Triple;
 import com.example.TestServer.models.UserModel;
 import com.example.TestServer.repos.RequestLogRepository;
 import com.example.TestServer.repos.StatisticsRepository;
 import com.example.TestServer.repos.UserRepository;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 @org.springframework.stereotype.Service
@@ -57,7 +55,7 @@ public class UserService {
         return userModel;
     }
 
-    public Pair<Long, List<StatisticsModel>> getUsersChangedStatusAfterTimestamp(String status, long timestamp) {
+    public Triple<Long, Long, List<StatisticsModel>> getUsersChangedStatusAfterTimestamp(String status, long timestamp) {
         int statusId = status.equals("Offline") ? 0 : 1;
         List<Statistics> statistics = this.statisticsRepository.findAllByChangeTimeAfterAndStatusId(timestamp, statusId);
         List<StatisticsModel> statisticsModels = new ArrayList<>();
@@ -69,7 +67,8 @@ public class UserService {
             StatisticsModel statisticsModel = new StatisticsModel(username, email, currentStatusId, changeTime);
             statisticsModels.add(statisticsModel);
         }
-        long requestId = requestLogRepository.save(new RequestLog(Instant.now().getEpochSecond(), status, timestamp)).getId();
-        return new Pair<>(requestId, statisticsModels);
+        long currentTime = Instant.now().getEpochSecond();
+        long requestId = requestLogRepository.save(new RequestLog(currentTime, status, timestamp)).getId();
+        return new Triple<>(requestId, currentTime, statisticsModels);
     }
 }

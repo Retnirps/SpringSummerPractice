@@ -5,7 +5,8 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Pair<T, V> {
-        T requestId;
-        V usersInfo;
+public class Triple<T, V, C> {
+    private T requestId;
+    private V timestamp;
+    private C usersInfo;
 }
