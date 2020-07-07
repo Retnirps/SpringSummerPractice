@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class UserModel {
-    private int id;
+    private long id;
     private String username;
     private int statusId;
     private int oldStatusId;
@@ -17,7 +17,7 @@ public class UserModel {
         this.email = email;
     }
 
-    public UserModel(int id, int oldStatusId, int statusId) {
+    public UserModel(long id, int oldStatusId, int statusId) {
         this.id = id;
         this.oldStatusId = oldStatusId;
         this.statusId = statusId;

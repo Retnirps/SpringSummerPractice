@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-
+public interface StatisticsRepository extends JpaRepository<Statistics, Long> {
+    List<Statistics> findAllByChangeTimeAfterAndStatusId(long timestamp, int statusId);
 }

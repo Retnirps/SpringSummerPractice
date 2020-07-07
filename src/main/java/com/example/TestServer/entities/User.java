@@ -10,23 +10,15 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private int userId;
-
+    private long userId;
     @Column(name = "status_id")
     private int statusId;
     @Column(name = "username")
     private String username;
     @Column(name = "email")
     private String email;
-
-    public User(int statusId, String username, String email) {
-        super();
-        this.statusId = statusId;
-        this.username = username;
-        this.email = email;
-    }
 
     public User(String username, String email) {
         super();

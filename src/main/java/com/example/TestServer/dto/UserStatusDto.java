@@ -11,7 +11,6 @@ public class UserStatusDto {
     private String status;
     private String oldStatus;
 
-
     public UserStatusDto(int userId, String status) {
         this.userId = userId;
         this.status = status;
