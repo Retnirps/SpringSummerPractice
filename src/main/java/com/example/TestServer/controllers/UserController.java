@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/data")
@@ -21,7 +22,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/users")
-    public long addUser(@RequestBody UserDto userDto) {
+    public Map addUser(@RequestBody UserDto userDto) {
         String username = userDto.getUsername();
         String email = userDto.getEmail();
         UserModel userModel = new UserModel(username, email);

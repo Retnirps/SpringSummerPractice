@@ -11,27 +11,30 @@ import com.example.TestServer.repos.RequestLogRepository;
 import com.example.TestServer.repos.StatisticsRepository;
 import com.example.TestServer.repos.UserRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @org.springframework.stereotype.Service
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private StatisticsRepository statisticsRepository;
+    private final StatisticsRepository statisticsRepository;
 
-    @Autowired
-    private RequestLogRepository requestLogRepository;
+    private final RequestLogRepository requestLogRepository;
 
-    public long addUser(UserModel userModel) {
+    public UserService(UserRepository userRepository, StatisticsRepository statisticsRepository, RequestLogRepository requestLogRepository) {
+        this.userRepository = userRepository;
+        this.statisticsRepository = statisticsRepository;
+        this.requestLogRepository = requestLogRepository;
+    }
+
+    public Map addUser(UserModel userModel) {
         String username = userModel.getUsername();
         String email = userModel.getEmail();
-        return this.userRepository.save(new User(username, email)).getUserId();
+        return Collections.singletonMap("userId", this.userRepository.save(new User(username, email)).getUserId());
     }
 
     public UserModel getUserById(long id) {
