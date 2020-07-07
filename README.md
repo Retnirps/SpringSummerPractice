@@ -6,4 +6,4 @@
 
 
 # Class Uml
-![alt_text](/UML/class_uml.png?raw=True)
+![alt_text](/UML/classUML.png?raw=True)
