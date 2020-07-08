@@ -22,4 +22,10 @@ public class UserModel {
         this.oldStatusId = oldStatusId;
         this.statusId = statusId;
     }
+
+    public UserModel(long id, String username, String email) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+    }
 }

@@ -17,7 +17,7 @@ public class StatisticsDto {
     }
 
     public StatisticsDto(int statusId, long timestamp, String username, String email) {
-        status = statusId == 0 ? "Offline" : "Online";
+        status = statusId == 0 ? "OFFLINE" : "ONLINE";
         this.timestamp = timestamp;
         this.username = username;
         this.email = email;

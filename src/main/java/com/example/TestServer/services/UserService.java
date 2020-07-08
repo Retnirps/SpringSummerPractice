@@ -42,7 +42,7 @@ public class UserService {
                     .orElseThrow(() -> new ResourceNotFoundException("user ID:" + id + " not found"));
             String username = user.getUsername();
             String email = user.getEmail();
-            UserModel userModel = new UserModel(username, email);
+            UserModel userModel = new UserModel(id, username, email);
             return userModel;
     }
 
@@ -58,8 +58,8 @@ public class UserService {
         return userModel;
     }
 
-    public Triple<Long, Long, List<StatisticsModel>> getUsersChangedStatusAfterTimestamp(String status, long timestamp) {
-        int statusId = status.equals("Offline") ? 0 : 1;
+    public Triple<List<StatisticsModel>> getUsersChangedStatusAfterTimestamp(String status, long timestamp) {
+        int statusId = status.equals("OFFLINE") ? 0 : 1;
         List<Statistics> statistics = this.statisticsRepository.findAllByChangeTimeAfterAndStatusId(timestamp, statusId);
         List<StatisticsModel> statisticsModels = new ArrayList<>();
         for (Statistics statistic : statistics) {

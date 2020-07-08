@@ -7,16 +7,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class UserStatusDto {
-    private int userId;
+    private long userId;
     private String status;
     private String oldStatus;
 
-    public UserStatusDto(int userId, String status) {
+    public UserStatusDto(long userId, String status) {
         this.userId = userId;
         this.status = status;
     }
 
-    public UserStatusDto(int userId, int oldStatusId, int statusId) {
+    public UserStatusDto(long userId, int oldStatusId, int statusId) {
         this.userId = userId;
         oldStatus = StatusEnum.values()[oldStatusId].name();
         status = StatusEnum.values()[statusId].name();

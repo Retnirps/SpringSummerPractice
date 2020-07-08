@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "statistics")
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class Statistics {
     @Id

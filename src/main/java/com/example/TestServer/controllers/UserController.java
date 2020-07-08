@@ -30,29 +30,29 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public UserDto getUserById(@PathVariable(value = "id") Integer userId)
+    public UserDto getUserById(@PathVariable(value = "id") Long userId)
     throws ResourceNotFoundException {
         UserModel userModel = this.userService.getUserById(userId);
         String username = userModel.getUsername();
         String email = userModel.getEmail();
-        UserDto userDto = new UserDto(username, email);
+        UserDto userDto = new UserDto(userId, username, email);
         return userDto;
     }
 
     @PutMapping("/users")
     public UserStatusDto setStatusForId(@RequestBody UserStatusDto userStatusDto) {
-        int userId = userStatusDto.getUserId();
-        int statusId = userStatusDto.getStatus().equals("Offline") ? 0 : 1;
+        long userId = userStatusDto.getUserId();
+        int statusId = userStatusDto.getStatus().equals("OFFLINE") ? 0 : 1;
         UserModel userModel = this.userService.setStatusForId(userId, statusId);
         userStatusDto = new UserStatusDto(userId, userModel.getOldStatusId(), statusId);
         return userStatusDto;
     }
 
     @GetMapping("/statistics")
-    public Triple<Long, Long, List<StatisticsDto>> getAllUsersChangedStatusAfterTimestamp(@RequestBody StatisticsDto statisticsDto) {
+    public Triple<List<StatisticsDto>> getAllUsersChangedStatusAfterTimestamp(@RequestBody StatisticsDto statisticsDto) {
         String status = statisticsDto.getStatus();
         long timestamp = statisticsDto.getTimestamp();
-        Triple<Long, Long, List<StatisticsModel>> requestIdWithRequestBody = userService.getUsersChangedStatusAfterTimestamp(status, timestamp);
+        Triple<List<StatisticsModel>> requestIdWithRequestBody = userService.getUsersChangedStatusAfterTimestamp(status, timestamp);
         List<StatisticsModel> models = requestIdWithRequestBody.getUsersInfo();
         List<StatisticsDto> statisticsDtoList = new ArrayList<>();
         for (StatisticsModel model : models) {
