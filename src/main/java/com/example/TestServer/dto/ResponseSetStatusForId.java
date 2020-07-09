@@ -6,17 +6,12 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class UserStatusDto {
+public class ResponseSetStatusForId {
     private long userId;
     private String status;
     private String oldStatus;
 
-    public UserStatusDto(long userId, String status) {
-        this.userId = userId;
-        this.status = status;
-    }
-
-    public UserStatusDto(long userId, int oldStatusId, int statusId) {
+    public ResponseSetStatusForId(long userId, int oldStatusId, int statusId) {
         this.userId = userId;
         oldStatus = StatusEnum.values()[oldStatusId].name();
         status = StatusEnum.values()[statusId].name();

@@ -18,14 +18,14 @@ import java.util.List;
 import java.util.Map;
 
 @org.springframework.stereotype.Service
-public class UserService {
+public class UserServiceImpl implements IUserService {
     private final UserRepository userRepository;
 
     private final StatisticsRepository statisticsRepository;
 
     private final RequestLogRepository requestLogRepository;
 
-    public UserService(UserRepository userRepository, StatisticsRepository statisticsRepository, RequestLogRepository requestLogRepository) {
+    public UserServiceImpl(UserRepository userRepository, StatisticsRepository statisticsRepository, RequestLogRepository requestLogRepository) {
         this.userRepository = userRepository;
         this.statisticsRepository = statisticsRepository;
         this.requestLogRepository = requestLogRepository;
@@ -42,8 +42,7 @@ public class UserService {
                     .orElseThrow(() -> new ResourceNotFoundException("user ID:" + id + " not found"));
             String username = user.getUsername();
             String email = user.getEmail();
-            UserModel userModel = new UserModel(id, username, email);
-            return userModel;
+        return new UserModel(id, username, email);
     }
 
     public UserModel setStatusForId(long id, int statusId) {
@@ -54,8 +53,7 @@ public class UserService {
         final User updatedUser = userRepository.save(user);
         statisticsRepository.save(new Statistics(updatedUser, statusId, Instant.now().getEpochSecond()));
 
-        UserModel userModel = new UserModel(id, oldStatusId, statusId);
-        return userModel;
+        return new UserModel(id, oldStatusId, statusId);
     }
 
     public Triple<List<StatisticsModel>> getUsersChangedStatusAfterTimestamp(String status, long timestamp) {
